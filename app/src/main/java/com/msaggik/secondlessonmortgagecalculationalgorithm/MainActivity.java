@@ -5,23 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import java.util.Arrays;
-
 public class MainActivity extends AppCompatActivity {
     // задание полей
-    float apartmentPrice = 1_000_000; // стоимость квартиры
-    int account = 250_000; // счёт пользователя
-    float wage = 100_000; // заработная плата в месяц
-    int percentFree = 50; // доля заработной платы на любые траты
-    float percentBank = 5; // годовая процентная ставка за ипотеку
+    float Price = 14_000;
+    int account = 1_000; // счёт пользователя
+    float wage = 2_500;
+    int percentFree = 100;
+    float percentBank = 5;
     float[] monthlyPayments = new float[120]; // создание массива ежемесячных платежей на 10 лет
 
-    // метод подсчёта стоимости квартиры с учётом первоначального взноса
+    // метод подсчёта стоимости с учётом первоначального взноса
     private float apartmentPriceWithContribution() {
-        return apartmentPrice - account; // возврат подсчитанного значения
+        return Price - account; // возврат подсчитанного значения
     }
 
-    // метод подсчёта ежемесячных трат на ипотеку (зар.плата, процент своб.трат)
+    // метод подсчёта ежемесячных трат
     public float mortgageCosts(float amount, int percent) {
         return (amount*percent)/100;
     }
@@ -62,10 +60,8 @@ public class MainActivity extends AppCompatActivity {
         countOut = findViewById(R.id.countOut); // вывод информации количества месяцев выплаты ипотеки
         manyMonthOut = findViewById(R.id.manyMonthOut); // вывод информации выписки по ежемесячным платежам
 
-        // запонение экрана
-        // 1) вывод количества месяцев выплаты ипотеки
-        countOut.setText("Ипотека будет выплачиваться " + countMonth(apartmentPriceWithContribution(), mortgageCosts(wage, percentFree),percentBank) + " месяцев");
-        // 2) подготовка выписки
+        // запонение экран
+        countOut.setText("Копить на телескоп надо " + countMonth(apartmentPriceWithContribution(), mortgageCosts(wage, percentFree),percentBank) + " месяцев");
         String monthlyPaymentsList = "";
         for(float list : monthlyPayments) {
             if (list > 0) {
@@ -75,6 +71,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         // 3) вывод выписки ежемесячных выплат по ипотеке
-        manyMonthOut.setText("Первоначальный взнос " + account + " монет, ежемесячные выплаты: " + monthlyPaymentsList);
+        manyMonthOut.setText("Первоначальная сумма " + account + " монет, ежемесячные пополнения: " + monthlyPaymentsList);
     }
 }
